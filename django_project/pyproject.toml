@@ -2,7 +2,7 @@
 name = "django_project_satvaspace"
 version = "0.1.0"
 description = ""
-authors = ["odi1n <sashf1999@mail.ru>"]
+authors = ["odi1n"]
 
 [tool.poetry.dependencies]
 python = "^3.8"

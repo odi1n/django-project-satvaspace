@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # MyProject
     'decision',
+    'content',
 ]
 
 MIDDLEWARE = [
