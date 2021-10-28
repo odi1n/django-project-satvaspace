@@ -2,4 +2,6 @@ from django.db import models
 
 
 class Audio(models.Model):
-    pass
+    class Meta:
+        verbose_name = "Аудио"
+        verbose_name_plural = "Аудио"
