@@ -2,4 +2,6 @@ from django.db import models
 
 
 class Page(models.Model):
-    pass
+    class Meta:
+        verbose_name = "Страница"
+        verbose_name_plural = "Страница"
