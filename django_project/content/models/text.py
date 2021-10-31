@@ -6,7 +6,8 @@ class Text(models.Model):
                              max_length=255)
     page = models.ForeignKey("decision.Page",
                              verbose_name="Страница",
-                             on_delete=models.CASCADE)
+                             on_delete=models.CASCADE,
+                             related_name="text")
     text = models.TextField(verbose_name="Текст")
     counter = models.IntegerField(verbose_name="Счетчик",
                                   default=0)

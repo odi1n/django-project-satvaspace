@@ -7,3 +7,4 @@ class TextSerializer(serializers.ModelSerializer):
     class Meta:
         model = Text
         exclude = ['page']
+        # fields = '__all__'

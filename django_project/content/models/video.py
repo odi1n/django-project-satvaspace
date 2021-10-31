@@ -6,7 +6,8 @@ class Video(models.Model):
                              max_length=255)
     page = models.ForeignKey("decision.Page",
                              verbose_name="Страница",
-                             on_delete=models.CASCADE)
+                             on_delete=models.CASCADE,
+                             related_name="video")
     link = models.URLField(verbose_name="Ссылка на видео")
     link_subtitles = models.URLField(verbose_name="Ссылка на субтитры")
     counter = models.IntegerField(verbose_name="Счетчик",

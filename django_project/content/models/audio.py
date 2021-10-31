@@ -6,7 +6,8 @@ class Audio(models.Model):
                              max_length=255)
     page = models.ForeignKey("decision.Page",
                              verbose_name="Страница",
-                             on_delete=models.CASCADE)
+                             on_delete=models.CASCADE,
+                             related_name="audio")
     bitrate = models.PositiveBigIntegerField(verbose_name="Битрейт",
                                              help_text="Зависит от максимального битрейта, который попытаться добавить в бд. На вскидку: 1,4 Гбит - для 1080р несжатого, как говорит вики (а это 1400000000 бит). ",
                                              default=0)
