@@ -1,9 +1,9 @@
 from django.db import models
 
+from decision.models import Base
 
-class Audio(models.Model):
-    title = models.CharField(verbose_name="Заголовок",
-                             max_length=255)
+
+class Audio(Base):
     page = models.ForeignKey("decision.Page",
                              verbose_name="Страница",
                              on_delete=models.CASCADE,
@@ -13,8 +13,6 @@ class Audio(models.Model):
                                              default=0)
     bit_in_second = models.PositiveIntegerField(verbose_name="Бит в секунду",
                                                 default=0)
-    counter = models.IntegerField(verbose_name="Счетчик",
-                                  default=0)
 
     class Meta:
         verbose_name = "Аудио"
