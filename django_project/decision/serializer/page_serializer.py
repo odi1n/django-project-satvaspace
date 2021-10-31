@@ -4,11 +4,18 @@ from ..models import Page
 from content.serializer import AudioSerializer, TextSerializer, VideoSerializer
 
 
+class PagesSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='pages-detail')
+
+    class Meta:
+        model = Page
+        fields = ['url']
+
+
 class PageSerializer(serializers.ModelSerializer):
-    title = serializers.CharField(read_only=True)
-    audio = AudioSerializer(many=True, read_only=True)
-    text = TextSerializer(many=True, read_only=True)
-    video = VideoSerializer(many=True, read_only=True)
+    audio = AudioSerializer(many=True)
+    text = TextSerializer(many=True)
+    video = VideoSerializer(many=True)
 
     class Meta:
         model = Page

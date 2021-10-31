@@ -1,1 +1,1 @@
-from .page_serializer import PageSerializer
+from .page_serializer import PageSerializer, PagesSerializer
