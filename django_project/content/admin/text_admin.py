@@ -9,6 +9,7 @@ class TextAdmin(admin.ModelAdmin):
                     'page',
                     'text',
                     'counter']
+    search_fields = ['title']
 
 
 class TextStackedInline(admin.StackedInline):

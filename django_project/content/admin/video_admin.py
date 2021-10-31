@@ -10,6 +10,7 @@ class VideoAdmin(admin.ModelAdmin):
                     'link',
                     'link_subtitles',
                     'counter']
+    search_fields = ['title']
 
 
 class VideoStackedInline(admin.StackedInline):

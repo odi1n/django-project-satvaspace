@@ -9,3 +9,4 @@ class PageAdmin(admin.ModelAdmin):
     list_display = ['title',
                     'counter']
     inlines = [TextStackedInline, AudioStackedInline, VideoStackedInline]
+    search_fields = ['title']

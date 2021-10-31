@@ -10,7 +10,7 @@ class AudioAdmin(admin.ModelAdmin):
                     'bitrate',
                     'bit_in_second',
                     'counter']
-
+    search_fields = ['title']
 
 class AudioStackedInline(admin.StackedInline):
     model = Audio
