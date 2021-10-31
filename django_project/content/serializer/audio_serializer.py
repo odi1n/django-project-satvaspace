@@ -6,4 +6,4 @@ from ..models import Audio
 class AudioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Audio
-        exclude = ['page']
+        fields = '__all__'

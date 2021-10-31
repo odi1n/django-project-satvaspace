@@ -6,5 +6,4 @@ from ..models import Text
 class TextSerializer(serializers.ModelSerializer):
     class Meta:
         model = Text
-        exclude = ['page']
-        # fields = '__all__'
+        fields = '__all__'
