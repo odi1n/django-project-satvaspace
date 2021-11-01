@@ -13,6 +13,6 @@ DATABASES = {
         'USER': env.str("POSTGRES_USER"),
         'PASSWORD': env.str("POSTGRES_PASSWORD"),
         'HOST': env.str("POSTGRES_HOST"),
-        'POST': env.str("POSTGRES_POST"),
+        'PORT': env.str("POSTGRES_PORT"),
     }
 }
