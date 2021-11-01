@@ -5,4 +5,12 @@ from ..models import Text
 
 @admin.register(Text)
 class TextAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title',
+                    'page',
+                    'text',
+                    'counter']
+    search_fields = ['title']
+
+
+class TextStackedInline(admin.StackedInline):
+    model = Text

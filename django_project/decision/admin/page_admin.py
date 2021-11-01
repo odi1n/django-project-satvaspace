@@ -1,8 +1,12 @@
 from django.contrib import admin
 
 from ..models import Page
+from content.admin import TextStackedInline, AudioStackedInline, VideoStackedInline
 
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title',
+                    'counter']
+    inlines = [TextStackedInline, AudioStackedInline, VideoStackedInline]
+    search_fields = ['title']
