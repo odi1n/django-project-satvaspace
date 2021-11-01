@@ -7,11 +7,11 @@ services:
     restart: always
     hostname: postgres
     environment:
-      POSTGRES_DB: '${POSTGRES_DB}'
-      POSTGRES_USER: '${POSTGRES_USER}'
-      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
-      POSTGRES_HOST: '${POSTGRES_HOST}'
-      POSTGRES_PORT: '${POSTGRES_PORT}'
+      POSTGRES_DB: 'dps_db'
+      POSTGRES_USER: 'dps_admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_HOST: 'localhost'
+      POSTGRES_PORT: '5432'
       CONFIGS: "listen_addresses:'*',max_replication_slots:5"
     ports:
       - "5432:5432"
@@ -44,10 +44,7 @@ services:
     image: celery:4.0.2
     restart: always
     build: ./django_project
-    #    command: celery -A api worker -B --loglevel=info --logfile=logs/celery.log
-    #    command: celery -A api worker -B --concurrency 3 --loglevel=info --logfile=logs/celery.log
-    command: celery -A api worker -B -n worker1@%h --concurrency=4 -Q test1,test2 --loglevel=info --logfile=logs/celery.log # dev
-    #    command: celery -A api worker -n worker1@%h --concurrency=4 -Q test1,test2 --loglevel=info --logfile=logs/celery.log # prod
+    command: celery -A django_project worker -B -n worker1@%h --concurrency=4 -Q test1,test2 --loglevel=info
     volumes:
       - ./django_project:/usr/src/app
     environment:
