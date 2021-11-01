@@ -1,0 +1,79 @@
+version: '3.3'
+
+services:
+  postgres:
+    container_name: dps_postgres
+    image: postgres:13.3
+    restart: always
+    hostname: postgres
+    environment:
+      POSTGRES_DB: 'dps_db'
+      POSTGRES_USER: 'dps_admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_HOST: 'localhost'
+      POSTGRES_POST: '5432'
+      CONFIGS: "listen_addresses:'*',max_replication_slots:5"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres/:/var/lib/postgresql/data
+      - ./data/shared/backups:/backups
+    healthcheck:
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    container_name: dps_backend
+    restart: always
+    build: ./django_project
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django_project:/usr/src/app
+    ports:
+      - 8000:8000
+    env_file:
+      - django_project/.env
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+
+  celery:
+    container_name: dps_celery
+    image: celery:4.0.2
+    restart: always
+    build: ./django_project
+    #    command: celery -A api worker -B --loglevel=info --logfile=logs/celery.log
+    #    command: celery -A api worker -B --concurrency 3 --loglevel=info --logfile=logs/celery.log
+    command: celery -A api worker -B -n worker1@%h --concurrency=4 -Q test1,test2 --loglevel=info --logfile=logs/celery.log # dev
+    #    command: celery -A api worker -n worker1@%h --concurrency=4 -Q test1,test2 --loglevel=info --logfile=logs/celery.log # prod
+    volumes:
+      - ./django_project:/usr/src/app
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+      - redis
+      - backend
+
+  rabbitmq:
+    container_name: dps_rabbitmq
+    image: rabbitmq:3.9.7
+    restart: always
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+
+  redis:
+    container_name: dps_redis
+    image: redis:5-alpine
+    restart: always
+    command: redis-server
+    ports:
+      - '6379:6379'
