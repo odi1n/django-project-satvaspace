@@ -12,5 +12,8 @@ class AudioAdmin(admin.ModelAdmin):
                     'counter']
     search_fields = ['title']
 
+
 class AudioStackedInline(admin.StackedInline):
     model = Audio
+    classes = ['collapse']
+    extra = 1

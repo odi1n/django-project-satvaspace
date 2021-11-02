@@ -14,3 +14,5 @@ class TextAdmin(admin.ModelAdmin):
 
 class TextStackedInline(admin.StackedInline):
     model = Text
+    classes = ['collapse']
+    extra = 1

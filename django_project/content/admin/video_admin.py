@@ -15,3 +15,5 @@ class VideoAdmin(admin.ModelAdmin):
 
 class VideoStackedInline(admin.StackedInline):
     model = Video
+    classes = ['collapse']
+    extra = 1
