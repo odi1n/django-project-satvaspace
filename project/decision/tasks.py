@@ -4,7 +4,7 @@ import django
 from celery.utils.log import get_task_logger
 from django.utils.timezone import make_aware
 
-from django_project.django_project.celery import app
+from django_project.celery import app
 
 django.setup()
 
@@ -20,4 +20,4 @@ def get_time() -> datetime.datetime:
 def test_time() -> dict:
     """Включение/выключение скидок"""
     time = get_time()
-    return {"status": True, "time": time}
+    return {"status": True, "time": "time"}

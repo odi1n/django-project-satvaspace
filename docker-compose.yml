@@ -7,11 +7,11 @@ services:
     restart: always
     hostname: postgres
     environment:
-      POSTGRES_DB: 'dps_db'
-      POSTGRES_USER: 'dps_admin'
-      POSTGRES_PASSWORD: 'admin'
-      POSTGRES_HOST: 'localhost'
-      POSTGRES_PORT: '5432'
+      POSTGRES_DB: '${POSTGRES_DB}'
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
+      POSTGRES_HOST: '${POSTGRES_HOST}'
+      POSTGRES_PORT: '${POSTGRES_PORT}'
       CONFIGS: "listen_addresses:'*',max_replication_slots:5"
     ports:
       - "5432:5432"
@@ -25,14 +25,13 @@ services:
   backend:
     container_name: dps_backend
     restart: always
-    build: ./django_project
+    build: ./project
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./django_project:/usr/src/app
+      - ./project:/usr/src/app
     ports:
       - 8000:8000
-    env_file:
-      - django_project/.env
+    env_file: project/.env
     environment:
       - POSTGRES_HOST=postgres
     depends_on:
@@ -43,28 +42,14 @@ services:
     image: celery:4.0.2
     restart: always
     build: .
-    command: celery -A django_project worker --loglevel=info
+    command: celery -A django_project worker -Q low,default,high --loglevel=info
+    env_file: .env
     volumes:
-      - .:/usr/src/app
-    environment:
-      - DEBUG=1
-      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-      - CELERY_BROKER=redis://redis:6379/0
-      - CELERY_BACKEND=redis://redis:6379/0
-      - POSTGRES_HOST=postgres
+      - ./project:/usr/src/app
     depends_on:
       - backend
       - postgres
       - redis
-
-  rabbitmq:
-    container_name: dps_rabbitmq
-    image: rabbitmq:3.9.7
-    restart: always
-    hostname: rabbitmq
-    ports:
-      - "5672:5672"
 
   redis:
     container_name: dps_redis

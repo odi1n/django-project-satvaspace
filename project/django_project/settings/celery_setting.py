@@ -8,14 +8,3 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_ENABLE_UTC = False
 CELERY_TIMEZONE = 'Europe/Moscow'
 
-CELERY_BEAT_SCHEDULE = {
-    "1_hours_discount_enabled": {
-        "task": "decision.tasks.test_time",
-        "schedule": crontab(minute=0, hour="*/1"),
-    },
-}
-
-CELERY_TASK_ROUTES = {
-    'decision.tasks.test_time': {'queue': 'test1', },
-}
-
