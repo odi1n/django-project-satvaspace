@@ -24,4 +24,4 @@ COPY poetry.lock pyproject.toml /usr/src/app/
 RUN poetry config virtualenvs.create false \
     && poetry install $(test "$YOUR_ENV" == production && echo "--no-dev") --no-interaction --no-ansi
 
-COPY .. /usr/src/app
+COPY . /usr/src/app

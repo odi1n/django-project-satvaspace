@@ -14,7 +14,7 @@ from pathlib import Path
 import environ, os
 
 # Environment
-root = environ.Path(__file__) - 4  # get root of the project
+root = environ.Path(__file__) - 3  # get root of the project
 env = environ.Env()
 environ.Env.read_env(os.path.join(root, '.env'))
 

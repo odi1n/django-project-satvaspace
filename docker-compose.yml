@@ -17,7 +17,6 @@ services:
       - "5432:5432"
     volumes:
       - ./data/postgres/:/var/lib/postgresql/data
-      - ./data/shared/backups:/backups
     healthcheck:
       interval: 5s
       timeout: 5s
@@ -33,7 +32,7 @@ services:
     ports:
       - 8000:8000
     env_file:
-      - .env
+      - django_project/.env
     environment:
       - POSTGRES_HOST=postgres
     depends_on:
@@ -43,10 +42,10 @@ services:
     container_name: dps_celery
     image: celery:4.0.2
     restart: always
-    build: ./django_project
-    command: celery -A django_project worker -B -n worker1@%h --concurrency=4 -Q test1,test2 --loglevel=info
+    build: .
+    command: celery -A django_project worker --loglevel=info
     volumes:
-      - ./django_project:/usr/src/app
+      - .:/usr/src/app
     environment:
       - DEBUG=1
       - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
@@ -55,9 +54,9 @@ services:
       - CELERY_BACKEND=redis://redis:6379/0
       - POSTGRES_HOST=postgres
     depends_on:
+      - backend
       - postgres
       - redis
-      - backend
 
   rabbitmq:
     container_name: dps_rabbitmq
