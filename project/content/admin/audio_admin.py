@@ -7,6 +7,7 @@ from ..models import Audio
 class AudioAdmin(admin.ModelAdmin):
     list_display = ['title',
                     'page',
+                    'link',
                     'bitrate',
                     'bit_in_second',
                     'counter']
