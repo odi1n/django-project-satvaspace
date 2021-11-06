@@ -1,6 +1,6 @@
 ### Environments
 #.env*
-django_project/.env
+.env
 .venv
 .evnv
 venv/
