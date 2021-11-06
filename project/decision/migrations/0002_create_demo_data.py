@@ -5,7 +5,7 @@ from faker.generator import random
 
 
 def create_demo_data(apps, schema_editor):
-    fake = Faker()
+    fake = Faker(locale="ru-RU")
 
     Page = apps.get_model("decision", "Page")
     Content = apps.get_model("content", "Content")
