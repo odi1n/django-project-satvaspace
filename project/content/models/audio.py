@@ -14,6 +14,3 @@ class Audio(Base):
     class Meta:
         verbose_name = "Аудио"
         verbose_name_plural = "Аудио"
-
-    def __str__(self):
-        return f'{self.title} - {self.counter}'
