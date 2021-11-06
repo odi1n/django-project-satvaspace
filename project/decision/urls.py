@@ -20,7 +20,7 @@ from rest_framework.routers import DefaultRouter
 from .viewset import PageViewSet
 
 router = DefaultRouter()
-router.register(r"page", PageViewSet, basename="pages")
+router.register(r"pages", PageViewSet, basename="pages")
 
 urlpatterns = [
     path("", include(router.urls)),

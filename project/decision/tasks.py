@@ -1,23 +1,11 @@
-import datetime
-
 import django
-from celery.utils.log import get_task_logger
-from django.utils.timezone import make_aware
 
 from django_project.celery import app
+from .service import increasing_counter_page
 
 django.setup()
 
-logger = get_task_logger(__name__)
 
-
-def get_time() -> datetime.datetime:
-    """Получить текущее время"""
-    return make_aware(datetime.datetime.now())
-
-
-@app.task
-def test_time() -> dict:
-    """Включение/выключение скидок"""
-    time = get_time()
-    return {"status": True, "time": "time"}
+@app.task(queue='low')
+def increasing_counter_page_task(page_id: int) -> None:
+    increasing_counter_page(page_id)

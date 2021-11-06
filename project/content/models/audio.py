@@ -1,19 +1,15 @@
 from django.db import models
 
-from decision.models import Base
+from .base import Base
 
 
 class Audio(Base):
-    page = models.ForeignKey("decision.Page",
-                             verbose_name="Страница",
-                             on_delete=models.CASCADE,
-                             related_name="audio")
     link = models.URLField(verbose_name="Ссылка на аудио")
     bitrate = models.PositiveBigIntegerField(verbose_name="Битрейт",
                                              help_text="Зависит от максимального битрейта, который попытаться добавить в бд. На вскидку: 1,4 Гбит - для 1080р несжатого, как говорит вики (а это 1400000000 бит). ",
                                              default=0)
     bit_in_second = models.IntegerField(verbose_name="Бит в секунду",
-                                                default=0)
+                                        default=0)
 
     class Meta:
         verbose_name = "Аудио"

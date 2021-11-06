@@ -41,11 +41,13 @@ services:
     container_name: dps_celery
     image: celery:4.0.2
     restart: always
-    build: .
+    build: ./project
     command: celery -A django_project worker -Q low,default,high --loglevel=info
     env_file: .env
     volumes:
       - ./project:/usr/src/app
+    environment:
+      - POSTGRES_HOST=postgres
     depends_on:
       - backend
       - postgres

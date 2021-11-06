@@ -1,13 +1,8 @@
 from django.db import models
-
-from decision.models import Base
+from .base import Base
 
 
 class Video(Base):
-    page = models.ForeignKey("decision.Page",
-                             verbose_name="Страница",
-                             on_delete=models.CASCADE,
-                             related_name="video")
     link = models.URLField(verbose_name="Ссылка на видео")
     link_subtitles = models.URLField(verbose_name="Ссылка на субтитры")
 
