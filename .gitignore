@@ -1,5 +1,5 @@
 ### Environments
-.env*
+#.env*
 .env
 .venv
 .evnv
@@ -13,7 +13,7 @@ venv.bak/
 
 #### Django
 # static
-backend/static/
+/django_project/staticfiles/
 
 # Byte-compiled / optimized / DLL files
 __pycache__

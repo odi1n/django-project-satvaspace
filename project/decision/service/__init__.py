@@ -1,0 +1,1 @@
+from .content_service import increasing_counter_page
