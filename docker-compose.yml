@@ -19,7 +19,10 @@ services:
       - 5432:5432
     volumes:
       - ./data/postgres/:/var/lib/postgresql/data
-
+    healthcheck:
+      interval: 5s
+      timeout: 5s
+      retries: 5
   redis:
     container_name: dps_redis
     image: redis:5-alpine
