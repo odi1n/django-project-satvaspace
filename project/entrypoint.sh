@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#python manage.py migrate --noinput
-#python manage.py createsuperuser --noinput --username admin --email admin@admin.ru
+python manage.py migrate --noinput
+python manage.py createsuperuser --noinput --username admin --email admin@admin.ru
 
 exec "$@"
