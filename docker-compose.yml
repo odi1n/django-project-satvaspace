@@ -20,9 +20,9 @@ services:
     volumes:
       - ./data/postgres/:/var/lib/postgresql/data
     healthcheck:
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      interval: 10s
+      timeout: 10s
+      retries: 10
   redis:
     container_name: dps_redis
     image: redis:5-alpine
@@ -47,6 +47,7 @@ services:
     container_name: dps_autotests
     build: ./project
     command: pytest
+    restart: on-failure:6
     volumes:
       - ./project:/usr/src/app
     env_file: .env
