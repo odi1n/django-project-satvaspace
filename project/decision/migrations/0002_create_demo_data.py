@@ -15,22 +15,17 @@ def create_demo_data(apps, schema_editor):
     Video = apps.get_model("content", "Video")
 
     contents = [Audio, Text, Video]
-    links = ["https//vk.com/id1"
-             "https//vk.com/id1",
-             "https//vk.com/id1",
-             "https//vk.com/id1"]
 
     for i in range(50):
         page = Page.objects.create(title=fake.sentence())
 
         for j in range(random.randint(1, 10)):
             content_model = random.choice(contents)
-            link = random.choice(links)
             if content_model == Audio:
                 content = content_model.objects.create(title=fake.sentence(),
                                                        bitrate=random.randint(10000, 100000),
                                                        bit_in_second=random.randint(1000, 1000000),
-                                                       link=link)
+                                                       link=fake.url())
                 Content.objects.create(page=page,
                                        content_audio=content)
             elif content_model == Text:
@@ -40,8 +35,8 @@ def create_demo_data(apps, schema_editor):
                                        content_text=content)
             elif content_model == Video:
                 content = content_model.objects.create(title=fake.sentence(),
-                                                       link=link,
-                                                       link_subtitles=link)
+                                                       link=fake.url(),
+                                                       link_subtitles=fake.url())
                 Content.objects.create(page=page,
                                        content_video=content)
 
