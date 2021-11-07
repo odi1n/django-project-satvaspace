@@ -8,3 +8,7 @@ class Page(models.Model):
     class Meta:
         verbose_name = "Страница"
         verbose_name_plural = "Страница"
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.title

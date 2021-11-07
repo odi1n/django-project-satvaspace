@@ -36,6 +36,10 @@ class Content(models.Model):
         verbose_name_plural = "Контент"
         ordering = ['custom_id']
 
+    def __str__(self):
+        return f'Контент - {self.id}'
+
+
     @classmethod
     def get_content_fields(cls) -> list:
         return [x for x in cls._meta.fields if x.name.startswith("content_")]

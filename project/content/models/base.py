@@ -9,7 +9,7 @@ class Base(TimeStampedModel):
                                           default=0)
 
     def __str__(self):
-        return f"{self.title}"
+        return f"{self.title} - кол-во: {self.counter}"
 
     class Meta:
         abstract = True

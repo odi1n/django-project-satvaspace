@@ -9,6 +9,3 @@ class Video(Base):
     class Meta:
         verbose_name = "Видео"
         verbose_name_plural = "Видео"
-
-    def __str__(self):
-        return f'{self.title} - {self.counter}'
