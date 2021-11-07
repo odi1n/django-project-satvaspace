@@ -13,8 +13,8 @@ services:
       POSTGRES_HOST: '${POSTGRES_HOST}'
       POSTGRES_PORT: '${POSTGRES_PORT}'
       CONFIGS: "listen_addresses:'*',max_replication_slots:5"
-#    expose:
-#      - 5432
+    #    expose:
+    #      - 5432
     ports:
       - 5432:5432
     volumes:
@@ -39,6 +39,16 @@ services:
     depends_on:
       - postgres
       - redis
+
+  autotests:
+    container_name: dps_autotests
+    build: ./project
+    command: pytest
+    volumes:
+      - ./project:/usr/src/app
+    env_file: .env
+    depends_on:
+      - postgres
 
   runserver:
     container_name: dps_runserver
